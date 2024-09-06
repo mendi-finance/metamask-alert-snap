@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "description": "A MetaMask Snap for Mendi Finance that monitors borrow limit usage and provides alerts to users.",
+  "proposedName": "Mendi Finance Liquidation Alert",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mendi-finance/metamask-alert-snap.git"
+  },
+  "source": {
+    "shasum": "8EeRtD4Vo4WlxYuDW/VPhAlYdBuQDSwL//2V9sLaXvc=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "iconPath": "img/icon.svg",
+        "packageName": "@mendi-finance/alert-snap",
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "initialPermissions": {
+    "snap_dialog": {},
+    "snap_notify": {},
+    "endowment:ethereum-provider": {},
+    "snap_manageState": {},
+    "endowment:webassembly": {},
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": false
+    },
+    "endowment:network-access": {},
+    "endowment:transaction-insight": {
+      "allowTransactionOrigin": true
+    },
+    "endowment:page-home": {},
+    "endowment:cronjob": {
+      "jobs": [
+        {
+          "expression": "* * * * *",
+          "request": {
+            "method": "checkBorrowLimit"
+          }
+        }
+      ]
+    }
+  },
+  "manifestVersion": "0.1"
+}
