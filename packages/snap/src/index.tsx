@@ -211,7 +211,7 @@ export const onHomePage: OnHomePageHandler = async () => {
         <Text>
           To update your settings, please visit the Mendi Finance website:
         </Text>
-        <Link href="https://staging.mendi.finance/snap">Mendi Finance</Link>
+        <Link href="https://mendi.finance/snap">Mendi Finance</Link>
       </Box>
     ),
   };
