@@ -172,6 +172,12 @@ const Index = () => {
     console.log('Installed Snap:', res);
   };
 
+  const handleSendTestNotification = async () => {
+    await invokeSnap({
+      method: 'sendTestNotification',
+    });
+  };
+
   const fetchSavedRpcs = async () => {
     try {
       const state = (await invokeSnap({ method: 'getState' })) as SnapState;
@@ -315,6 +321,22 @@ const Index = () => {
             disabled={!installedSnap}
           />
         )}
+        <Card
+          content={{
+            title: 'Send Notification',
+            description:
+              'Send a test notification to check if the snap is working correctly.',
+            button: (
+              <CustomButton
+                onClick={handleSendTestNotification}
+                disabled={!installedSnap}
+              >
+                Send Test Notification
+              </CustomButton>
+            ),
+          }}
+          disabled={!installedSnap}
+        />
         <Card
           content={{
             title: 'Add Custom RPC',

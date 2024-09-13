@@ -1,6 +1,6 @@
 {
   "name": "@mendi-finance/alert-snap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A MetaMask Snap for Mendi Finance that monitors borrow limit usage and provides alerts to users.",
   "repository": {
     "type": "git",

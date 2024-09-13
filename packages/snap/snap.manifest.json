@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A MetaMask Snap for Mendi Finance that monitors borrow limit usage and provides alerts to users.",
   "proposedName": "Mendi Finance Liquidation Alert",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/mendi-finance/metamask-alert-snap.git"
   },
   "source": {
-    "shasum": "8EeRtD4Vo4WlxYuDW/VPhAlYdBuQDSwL//2V9sLaXvc=",
+    "shasum": "yX7A0MbM0e2ZO9KINXuWo8dibyuzKrLZ8zyYGWyOcXw=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

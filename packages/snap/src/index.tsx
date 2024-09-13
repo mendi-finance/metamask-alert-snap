@@ -6,7 +6,6 @@ import {
 import {
   Box,
   Text,
-  Bold,
   Link,
   Heading,
   Divider,
@@ -16,6 +15,10 @@ import {
 import MendiIcon from '../img/icon-small.svg';
 import { getBorrowLimitUsedPercentage } from './service';
 import type { SnapState } from './types';
+import {
+  displayBorrowLimitDialog,
+  sendBorrowLimitNotification,
+} from './utils/ui';
 import {
   addCustomRPC,
   getCustomRPCs,
@@ -113,7 +116,13 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
 export const onCronjob: OnCronjobHandler = async ({ request }) => {
   switch (request.method) {
     case 'checkBorrowLimit': {
-      const snapState = (await getState()) as SnapState;
+      const [{ locked }, snapState] = await Promise.all([
+        snap.request({
+          method: 'snap_getClientStatus',
+        }),
+        getState() as Promise<SnapState>,
+      ]);
+
       const {
         threshold,
         notificationPeriod,
@@ -121,6 +130,7 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
         lastKnownAboveThreshold,
         mendiAddress,
       } = snapState;
+
       const currentTime = Date.now();
 
       // Check if it's time to check the borrow limit
@@ -130,33 +140,18 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
 
       // Exit early if it's not time to check
       if (timeSinceLastCheck < notificationPeriod) {
-        return undefined;
+        return;
       }
 
       const pct = await getBorrowLimitUsedPercentage(mendiAddress);
       const isAboveThreshold = pct >= threshold;
-
+      const formattedPct = pct.toFixed(2);
       if (isAboveThreshold) {
-        await snap.request({
-          method: 'snap_dialog',
-          params: {
-            type: 'alert',
-            content: (
-              <Box>
-                <Heading>Borrow Limit Alert</Heading>
-                <Text>
-                  Your borrow limit usage has exceeded the threshold:{' '}
-                  <Bold>{pct.toFixed(2)}%</Bold>
-                </Text>
-                <Text>
-                  Pay your debt <Link href="https://mendi.finance">here</Link>.
-                </Text>
-              </Box>
-            ),
-          },
-        });
-
-        // Update lastNotificationTime and lastKnownAboveThreshold
+        if (locked) {
+          await sendBorrowLimitNotification(formattedPct);
+        } else {
+          await displayBorrowLimitDialog(formattedPct);
+        }
         await setState({
           ...snapState,
           lastNotificationTime: currentTime,
@@ -177,7 +172,7 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
         });
       }
 
-      return undefined;
+      return;
     }
     default:
       throw new Error(`Method not found: ${request.method}`);
