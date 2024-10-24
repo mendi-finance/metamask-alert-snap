@@ -1,6 +1,6 @@
 {
   "name": "@mendi-finance/alert-snap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A MetaMask Snap for Mendi Finance that monitors borrow limit usage and provides alerts to users.",
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@mendi-finance/lending-sdk": "1.1.0",
+    "@mendi-finance/lending-sdk": "1.2.0",
     "@metamask/snaps-sdk": "^6.1.1",
     "@metamask/utils": "^9.1.0",
     "buffer": "^6.0.3"

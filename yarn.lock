@@ -2590,7 +2590,7 @@ __metadata:
   resolution: "@mendi-finance/alert-snap@workspace:packages/snap"
   dependencies:
     "@jest/globals": ^29.5.0
-    "@mendi-finance/lending-sdk": 1.1.0
+    "@mendi-finance/lending-sdk": 1.2.0
     "@metamask/auto-changelog": ^3.4.4
     "@metamask/eslint-config": ^12.2.0
     "@metamask/eslint-config-jest": ^12.1.0
@@ -2620,12 +2620,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mendi-finance/lending-sdk@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@mendi-finance/lending-sdk@npm:1.1.0"
+"@mendi-finance/lending-sdk@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@mendi-finance/lending-sdk@npm:1.2.0"
   dependencies:
     viem: ^2.19.6
-  checksum: e13bc4d9cc536a58324490ff0cfae0ba5ac4aea8a6f655d504300f726720741f014783ce38df9104e6e01ba562e0c4d072872c13c212b932c0735254d8d15705
+  checksum: 8001675bf0dde30cb3ed0b1c595dd12356ae21a4febf63ec2755fa660d6dc361b84dddc7081b87d909df2773646175611500c3eb27088758e1b700a4bd4218fa
   languageName: node
   linkType: hard
 

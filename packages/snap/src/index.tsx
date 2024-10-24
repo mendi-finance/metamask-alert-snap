@@ -1,3 +1,4 @@
+import { resolveHandles } from '@mendi-finance/lending-sdk';
 import {
   type OnRpcRequestHandler,
   type OnCronjobHandler,
@@ -181,9 +182,10 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
 
 export const onHomePage: OnHomePageHandler = async () => {
   const state = (await getState()) as SnapState;
-  const borrowLimitUsed = await getBorrowLimitUsedPercentage(
-    state.mendiAddress,
-  );
+  const [borrowLimitUsed, handle] = await Promise.all([
+    getBorrowLimitUsedPercentage(state.mendiAddress),
+    resolveHandles(state.mendiAddress as `0x${string}`),
+  ]);
 
   return {
     content: (
@@ -201,7 +203,7 @@ export const onHomePage: OnHomePageHandler = async () => {
         </Text>
         <Divider />
         <Heading>Your Connected Address</Heading>
-        <Text>{state.mendiAddress ?? 'Not set'}</Text>
+        <Text>{handle ?? 'Not set'}</Text>
         <Divider />
         <Text>
           To update your settings, please visit the Mendi Finance website:
